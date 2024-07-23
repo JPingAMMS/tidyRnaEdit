@@ -19,6 +19,11 @@ data(T15H10,package="tidyRnaEdit")
 merged_data %>% head
 sample_info %>% head
 
+data(anno_hg38_REDIportal,package="tidyRnaEdit")
+
+anno_hg38_REDIportal %>% head
+anno = anno_hg38_REDIportal
+
 ######################################################################
 # Count num. of editing types
 ######################################################################

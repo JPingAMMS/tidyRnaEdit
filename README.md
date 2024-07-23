@@ -4,52 +4,20 @@
 ######################################################################
 # packages
 ######################################################################
-library(dplyr)
-library(readr)
-library(readxl)
-source("E:/pj/gy习服.RNA编辑/R/utils.R")
-source("E:/pj/gy习服.RNA编辑/R/utils_plot.R")
-
+library(tidyRnaEdit)
 
 ######################################################################
-# Path
+# Read-in example data
 ######################################################################
-#--------- work space ------------
-setwd("E:/pj/gy.RNA编辑/a2i_known_gz_T15H10")
+data(T15H10,package="tidyRnaEdit")
 
-#--------- path_data ------------
-# sample_info (3 cols: filename, sampleid, group)
-path_sample = "E:/pj/gy.RNA编辑/reditools_samples.xlsx"
+# Two files are loaded. 
+# one for editing_rate matrix: merged_data
+# another for sample_info: sample_info
 
-# anno (download from REDIportal)
-path_anno = "F:/AMS2018_RNAedit/TABLE1_hg38.txt.gz"
-
-#--------- path_save ------------
-# root
-path_save = "E:/pj/gy.RNA编辑/T15H10"
-# editing_type
-path_save_type        = paste0(path_save, "")
-# OverallEditing
-path_save_overalledit = paste0(path_save, "")
-
-
-######################################################################
-# Read-in data
-######################################################################
-# sample info
-sample_info = readxl::read_excel(path_sample)
-
-# anno
-anno = read.table(gzfile(path_anno), sep ='\t', fill=TRUE, header = TRUE)
-
-# editing data
-merged_data = read_redit(sample_info, soft = "reditools_known")
-
-# save
-write.csv(merged_data, file=gzfile(paste0(path_save,"/mat_raw.csv.gz")), row.names = FALSE)
-
-merged_data = read.csv(gzfile(paste0(path_save,"/mat_raw.csv.gz")),header=TRUE)
-save(merged_data, sample_info, file="T15H10.RData")
+# get a look
+merged_data %>% head
+sample_info %>% head
 
 ######################################################################
 # Count num. of editing types
@@ -106,4 +74,47 @@ diff_sig = diff_res %>%
 diff_sig_anno = anno_edit_site(diff_sig, anno)
 
 write.csv(diff_sig_anno, file=paste0(path_save,"/diff_sig_anno.csv"), row.names = FALSE)
+```
+
+# Run with your data
+
+```r
+######################################################################
+# Path
+######################################################################
+#--------- work space ------------
+setwd("your_path")
+
+#--------- path_data ------------
+# sample_info (3 cols: filename, sampleid, group)
+path_sample = "E:/pj/gy.RNA编辑/reditools_samples.xlsx"
+
+# anno (download from REDIportal)
+path_anno = "F:/AMS2018_RNAedit/TABLE1_hg38.txt.gz"
+
+#--------- path_save ------------
+# root
+path_save = "E:/pj/gy.RNA编辑/T15H10"
+# editing_type
+path_save_type        = paste0(path_save, "")
+# OverallEditing
+path_save_overalledit = paste0(path_save, "")
+
+######################################################################
+# Read-in data
+######################################################################
+# sample info
+sample_info = readxl::read_excel(path_sample)
+
+# anno
+anno = read.table(gzfile(path_anno), sep ='\t', fill=TRUE, header = TRUE)
+
+# editing data
+merged_data = read_redit(sample_info, soft = "reditools_known")
+
+# save
+write.csv(merged_data, file=gzfile(paste0(path_save,"/mat_raw.csv.gz")), row.names = FALSE)
+
+merged_data = read.csv(gzfile(paste0(path_save,"/mat_raw.csv.gz")),header=TRUE)
+save(merged_data, sample_info, file="T15H10.RData")
 ```

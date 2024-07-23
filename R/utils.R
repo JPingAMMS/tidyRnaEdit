@@ -76,6 +76,14 @@ save_csv_gz = function(df, file){
 
 
 # ------- count num. of editing types ---------------
+#' Title
+#'
+#' @param df
+#'
+#' @return
+#' @export
+#'
+#' @examples
 edit_type_count = function(df) {
 
   # TODO:
@@ -114,6 +122,20 @@ edit_type_count = function(df) {
 ##        QC         ##
 #######################
 # ------- Filter variant ------
+#' Title
+#'
+#' @param merged_data
+#' @param sample_info
+#' @param edit_rate_indi
+#' @param edit_rate_mean
+#' @param missing_rate
+#' @param left_n_total
+#' @param left_n_in_each_group
+#'
+#' @return
+#' @export
+#'
+#' @examples
 filter_variant = function(merged_data,
                           sample_info,
                           edit_rate_indi = 0.05,
@@ -314,6 +336,15 @@ filter_variant = function(merged_data,
 #######################
 ##        diff       ##
 #######################
+#' Title
+#'
+#' @param df
+#' @param sample_info
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calc_mean = function(df, sample_info){
 
   # TODO
@@ -356,6 +387,16 @@ calc_mean = function(df, sample_info){
 }
 
 
+#' Title
+#'
+#' @param df
+#' @param sample_info
+#' @param comparison
+#'
+#' @return
+#' @export
+#'
+#' @examples
 diff_edit_site = function(df, sample_info, comparison) {
 
   # TODO
@@ -413,6 +454,15 @@ diff_edit_site = function(df, sample_info, comparison) {
 #######################
 ##       Anno        ##
 #######################
+#' Title
+#'
+#' @param df
+#' @param annoFile
+#'
+#' @return
+#' @export
+#'
+#' @examples
 anno_edit_site = function(df, annoFile) {
 
   # TODO

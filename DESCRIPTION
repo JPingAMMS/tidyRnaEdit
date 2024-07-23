@@ -1,0 +1,24 @@
+Package: tidyRnaEdit
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given = "Jie", family = "Ping",  email = "pingjie46@126.com", role  = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0001-9395-0379")),
+    person(given = "Hao", family = "Lu",    email = "luh678@163.com",    role  = c("ctb"))
+        )
+Description: Jie Ping <pingjie46@126.com>
+Depends: 
+    R (>= 4.4.0)
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    ezlimma (>= 0.2.5.9011),
+    readr,
+    readxl,
+    dplyr,
+    tidyr,
+    tibble,
+    ggpubr
+Remotes: 
+    jdreyf/ezlimma

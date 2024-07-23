@@ -21,8 +21,7 @@ sample_info %>% head
 
 data(anno_hg38_REDIportal,package="tidyRnaEdit")
 
-anno_hg38_REDIportal %>% head
-anno = anno_hg38_REDIportal
+anno %>% head
 
 ######################################################################
 # Count num. of editing types

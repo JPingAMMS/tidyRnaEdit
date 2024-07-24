@@ -9,31 +9,38 @@ library(tidyRnaEdit)
 ######################################################################
 # Read-in example data
 ######################################################################
+# Read-in the example dataset.
 data(T15H10,package="tidyRnaEdit")
 
-# Two files are loaded. 
-# one for editing_rate matrix: merged_data
-# another for sample_info: sample_info
+# This example dataset contains two files. 
+# 1. editing_rate matrix: merged_data
+# 2. sample_info: sample_info
 
-# get a look
+# get a look at this dataset
 merged_data %>% head
 sample_info %>% head
 
+# Read-in annotation file.
 data(anno_hg38_REDIportal,package="tidyRnaEdit")
 
+# get a look at annotation infomation.
 anno %>% head
 
 ######################################################################
 # Count num. of editing types
 ######################################################################
 # count
-rna_type_count = edit_type_count(merged_data)
+edit_type_count = edit_type_count(merged_data)
 # save
-write.csv(rna_type_count, file=paste0(path_save_type,"/mat_raw_count.csv"), row.names = FALSE)
+write.csv(edit_type_count, file=paste0(path_save_type,"/mat_raw_count.csv"), row.names = FALSE)
 
-# plot
-plot_edit_type_count(rna_type_count, save = T,
-                     file=paste0(path_save_type,"/plot_rna_type_count.pdf"))
+# plot without save
+plot_edit_type_count(edit_type_count)
+
+# plot and save
+path_save_type="."  # change to your save_directory_path
+plot_edit_type_count(edit_type_count, save = TRUE,
+                     file=paste0(path_save_type,"/plot_edit_type_count.pdf"))
 
 ######################################################################
 # Filtering variants
@@ -45,9 +52,10 @@ mat_qc = filter_variant(merged_data, sample_info,
                         left_n_total = NA,
                         left_n_in_each_group = 5)
 
+path_save="."  # change to your save_directory_path
 write.csv(mat_qc, file=gzfile(paste0(path_save,"/mat_qc.csv.gz")), row.names = FALSE)
 
-mat_qc[duplicated(mat_qc$symbol) == T,]
+mat_qc[duplicated(mat_qc$symbol) == TRUE,]
 
 ######################################################################
 # diff_analy_limma for genes
@@ -59,7 +67,7 @@ diff_res = diff_edit_site(mat_qc,
                           comparison = c("Han", "Tibetan"))  # control_group = "Han"
 
 # threshold
-FDR_thres = 0.05/nrow(diff_res)
+FDR_thres = 0.05
 deltaEdit_thres = 0.30
 
 # filter sig symbol
@@ -77,32 +85,59 @@ diff_sig = diff_res %>%
 ######################################################################
 diff_sig_anno = anno_edit_site(diff_sig, anno)
 
+path_save="."  # change to your save_directory_path
 write.csv(diff_sig_anno, file=paste0(path_save,"/diff_sig_anno.csv"), row.names = FALSE)
 ```
 
 # Run with your data
 
+## Download the example data of REDItools outTables.
+
+We provided an example data at [github](https://github.com/JPingAMMS/tidyRnaEdit_exampledata), which you can download at your PC.
+Then, unzip the `tidyRnaEdit_exampledata.zip`.
+
+The files named `*outTable.gz` are REDItools outTables. Only chr17 is provided for test.
+The file `reditools_sample.xlsx` is a dataframe of 3 columns, including filepath, sampleid, group.
+
+NOTE:
+1. `*outTable.gz` is the standard output by REDItools.
+2. When you generate your `reditools_sample.xlsx` file, You should KEEP (not modify) the column names.
+
+## Download the annotation file.
+
+A curated annotated file is available at [REDIportal](http://srv00.recas.ba.infn.it/atlas/download.htmcl).
+
+The annotation file with hg38 positions is already to use in this package, namely, the `anno`.
+
+## Tutorials with the example data.
+
 ```r
+######################################################################
+# packages
+######################################################################
+library(tidyRnaEdit)
+
+
 ######################################################################
 # Path
 ######################################################################
 #--------- work space ------------
-setwd("your_path")
+setwd("your_path_where_saved_the_outTables")  # change to your_path_where_saved_the_outTables
 
 #--------- path_data ------------
 # sample_info (3 cols: filename, sampleid, group)
-path_sample = "E:/pj/gy.RNA编辑/reditools_samples.xlsx"
+path_sample = "reditools_samples.xlsx"  # change to your_path_where_saved_the_outTables
 
-# anno (download from REDIportal)
-path_anno = "F:/AMS2018_RNAedit/TABLE1_hg38.txt.gz"
+# anno (using `anno` in our package, or you can download from REDIportal)
+path_anno = "TABLE1_hg38.txt.gz"  # change to your_path_where_saved_the_outTables
 
 #--------- path_save ------------
 # root
-path_save = "E:/pj/gy.RNA编辑/T15H10"
+path_save = "."  # change to your save_directory_path
 # editing_type
-path_save_type        = paste0(path_save, "")
+path_save_type        = paste0(path_save, "")   # change to your save_directory_path
 # OverallEditing
-path_save_overalledit = paste0(path_save, "")
+path_save_overalledit = paste0(path_save, "")   # change to your save_directory_path
 
 ######################################################################
 # Read-in data
@@ -120,5 +155,6 @@ merged_data = read_redit(sample_info, soft = "reditools_known")
 write.csv(merged_data, file=gzfile(paste0(path_save,"/mat_raw.csv.gz")), row.names = FALSE)
 
 merged_data = read.csv(gzfile(paste0(path_save,"/mat_raw.csv.gz")),header=TRUE)
-save(merged_data, sample_info, file="T15H10.RData")
+
+# Then, you can do down-stream analysis, follow the `example run` section. Enjoy!
 ```

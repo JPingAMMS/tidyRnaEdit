@@ -1,4 +1,25 @@
-# Example run
+
+# Install
+
+## Install dependent R packages
+
+On Windows, you should have [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
+
+```r
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("")
+install.packages("ggpubr")
+
+library(BiocManager)
+BiocManager::install("limma")
+
+library(remotes)
+remotes::install_github(repo="jdreyf/ezlimma", build_opts = c("--no-resave-data", "--no-manual"), build_vignettes = FALSE)
+```
+
+# Usage
+## Example run
 
 ```r
 ######################################################################
@@ -96,9 +117,9 @@ diff_sig_recoding_site %>% head
 
 ---
 
-# Run with your data
+## Run with your data
 
-## Download the example data of REDItools outTables.
+### Download the example data of REDItools outTables.
 
 We provided an example data at [github](https://github.com/JPingAMMS/tidyRnaEdit_exampledata), which you can download at your PC.
 
@@ -110,16 +131,27 @@ NOTE:
 1. `*outTable.gz` is the standard output by REDItools.
 2. When you generate your `reditools_sample.xlsx` file, You should KEEP (not modify) the column names.
 
-## Download the annotation file.
+### Download the annotation file. (if using hg38, pass this step)
 
-The annotation file on human (hg38) is already to use in this package, namely, the `anno`.
+Now, tidyRnaEdit has already included the annotation file on human (hg38). You can easily use it without downloading.
 
-You can also use your own annotation files.
+```r
+# just type
+library(tidyRnaEdit)
+data(anno_hg38_REDIportal,package="tidyRnaEdit")
 
-We recommend a well-curated annotated file, which is available at [REDIportal](http://srv00.recas.ba.infn.it/atlas/download.htmcl).
+# get a look at this annotation file.
+anno %>% head
+
+# The annotation file on human (hg38) is already to use in this package, namely, the `anno`.
+```
+
+For other genome version of human and other species, you should download elsewhere.
+
+We recommend a well-curated annotated database, which is available at [REDIportal](http://srv00.recas.ba.infn.it/atlas/download.htmcl).
 
 
-## Tutorials with the example data.
+### Tutorials with the example data.
 
 ```r
 ######################################################################

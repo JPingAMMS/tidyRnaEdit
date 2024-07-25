@@ -88,21 +88,23 @@ diff_sig_anno = anno_edit_site(diff_sig, anno)
 path_save="."  # change to your save_directory_path
 write.csv(diff_sig_anno, file=paste0(path_save,"/diff_sig_anno.csv"), row.names = FALSE)
 
-# recoding site
+# extract recoding site
 diff_sig_recoding_site = diff_sig_anno %>% dplyr::filter(Func.wgEncodeGencodeBasicV34=="exonic")
 
 diff_sig_recoding_site %>% head
 ```
+
+---
 
 # Run with your data
 
 ## Download the example data of REDItools outTables.
 
 We provided an example data at [github](https://github.com/JPingAMMS/tidyRnaEdit_exampledata), which you can download at your PC.
-Then, unzip the `tidyRnaEdit_exampledata.zip`.
 
-The files named `*outTable.gz` are REDItools outTables. Only chr17 is provided for test.
-The file `reditools_sample.xlsx` is a dataframe of 3 columns, including filepath, sampleid, group.
+Then, unzip the `tidyRnaEdit_exampledata.zip`, which are,
+1. The files named `*outTable.gz` are REDItools outTables. Only chr17 is provided for test.
+2. The file `reditools_sample.xlsx` is a dataframe of 3 columns, including filepath, sampleid, group.
 
 NOTE:
 1. `*outTable.gz` is the standard output by REDItools.
@@ -110,9 +112,12 @@ NOTE:
 
 ## Download the annotation file.
 
-A curated annotated file is available at [REDIportal](http://srv00.recas.ba.infn.it/atlas/download.htmcl).
+The annotation file on human (hg38) is already to use in this package, namely, the `anno`.
 
-The annotation file with hg38 positions is already to use in this package, namely, the `anno`.
+You can also use your own annotation files.
+
+We recommend a well-curated annotated file, which is available at [REDIportal](http://srv00.recas.ba.infn.it/atlas/download.htmcl).
+
 
 ## Tutorials with the example data.
 

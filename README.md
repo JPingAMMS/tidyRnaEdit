@@ -87,6 +87,11 @@ diff_sig_anno = anno_edit_site(diff_sig, anno)
 
 path_save="."  # change to your save_directory_path
 write.csv(diff_sig_anno, file=paste0(path_save,"/diff_sig_anno.csv"), row.names = FALSE)
+
+# recoding site
+diff_sig_recoding_site = diff_sig_anno %>% dplyr::filter(Func.wgEncodeGencodeBasicV34=="exonic")
+
+diff_sig_recoding_site %>% head
 ```
 
 # Run with your data
@@ -122,7 +127,7 @@ library(tidyRnaEdit)
 # Path
 ######################################################################
 #--------- work space ------------
-setwd("your_path_where_saved_the_outTables")  # change to your_path_where_saved_the_outTables
+setwd("/data/pingj/soft/tidyRnaEdit_exampledata/")  # change to your_path_where_saved_the_outTables
 
 #--------- path_data ------------
 # sample_info (3 cols: filename, sampleid, group)

@@ -20,7 +20,6 @@
 #'
 #' @examples
 #' read_redit(sample_info, soft="reditools_known")
-
 read_redit = function(sample_info, soft="reditools_known") {
 
   # TODO:
@@ -78,7 +77,7 @@ save_csv_gz = function(df, file){
 # ------- count num. of editing types ---------------
 #' Title
 #'
-#' @param df
+#' @param df dataframe
 #'
 #' @return
 #' @export

@@ -7,7 +7,7 @@
 edit_type_count(df)
 }
 \arguments{
-\item{df}{}
+\item{df}{dataframe}
 }
 \description{
 Title

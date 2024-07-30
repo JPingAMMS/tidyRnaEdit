@@ -4,17 +4,17 @@
 \alias{plot_edit_type_count}
 \title{Title}
 \usage{
-plot_edit_type_count(df, save = FALSE, file = NA)
+plot_edit_type_count(data = rna_type_count, save = FALSE, file = NA)
 }
 \arguments{
-\item{df}{rna_type_count}
+\item{data}{dataframe, rna_type_count}
 
 \item{save}{whether to save}
 
 \item{file}{FilePath to save}
 }
 \value{
-barplot of rna type count
+barplot of rna editing type count
 }
 \description{
 Title
